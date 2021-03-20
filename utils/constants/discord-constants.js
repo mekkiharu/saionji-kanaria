@@ -1,0 +1,1 @@
+export const PARTIALS = ['MESSAGE', 'CHANNEL', 'REACTION'];

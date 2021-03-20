@@ -1,0 +1,25 @@
+{
+  "name": "saionji-kanaria",
+  "version": "1.0.0",
+  "description": "A Discord Bot with mish-mash of stuff !",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com//mekkiharu/saionji-kanaria.git"
+  },
+  "keywords": [],
+  "author": "Mekki Haru",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.5.1",
+    "dotenv": "^8.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
