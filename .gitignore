@@ -105,3 +105,6 @@ dist
 
 # IntelliJ Stuff
 .idea
+
+# Gradle builds
+.gradle
