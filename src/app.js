@@ -1,24 +1,24 @@
-import Discord from 'discord.js';
-import { PARTIALS } from '../utils/constants/discord-constants.js';
+import { COMMAND_PREFIX } from '../utils/constants/discord-constants.js';
+import { SPECIAL_CHARA_REGEX } from '../utils/constants/utility-constants.js';
 
-const app = async () => {
-  const discordClient = new Discord.Client({ partials: PARTIALS });
-  const loginToken = process.env.SAIONJI_TOKEN;
+const app = async (kanaInstance) => {
   const ownId = process.env.SAIONJI_KANARIA_ID;
 
-  discordClient.on('ready', () => {
-    console.log('Saionji-Kanaria is Ready !');
-  });
+  kanaInstance.on('message', (msg) => {
+    const args = msg.content.slice(COMMAND_PREFIX.length).trim().split(' ');
+    const commandName = args.length ? args.shift().toLowerCase() : msg.content.replace(SPECIAL_CHARA_REGEX, '');
 
-  discordClient.on('message', (msg) => {
-    if (msg.author.id !== ownId) {
-      if (msg.content.toLowerCase().includes('hallo')) {
-        msg.channel.send('Nyahallo!');
-      }
+    if (msg.author.id === ownId || !kanaInstance.commands.has(commandName)) {
+      return;
     }
-  })
 
-  await discordClient.login(loginToken);
+    try {
+      kanaInstance.commands.get(commandName).execute(msg, args);
+    } catch (err) {
+      console.error(err);
+      msg.channel.send('Kana found an error while trying to execute that command!');
+    }
+  });
 };
 
 export default app;
