@@ -7,7 +7,6 @@ const app = async (kanaInstance) => {
     const args = msg.content.startsWith(COMMAND_PREFIX) && msg.content.slice(COMMAND_PREFIX.length).trim().split(' ');
     const commandName = args.length ? args.shift().toLowerCase() : '';
     const wasKanaMentioned = !!msg.mentions.users.get(ownId);
-
     if (msg.author.id === ownId || !kanaInstance.commands.has(commandName)) {
       return;
     }
