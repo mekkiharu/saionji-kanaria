@@ -108,3 +108,6 @@ dist
 
 # Gradle builds
 .gradle
+
+# Ignore Configs
+configs

@@ -1,7 +1,7 @@
 const greetingsIndex = {
   'casualGreets': {
-    'greets': ['hello', 'hallo', 'sup', 'owo7', 'o/', 'whats up', 'what\'s up', 'what up', 'howdy', 'ahoy', 'henlo'],
-    'singleGreets': ['hi', 'yo', 'nyow', 'hiya', 'heya']
+    'greets': ['hello', 'hallo', 'sup', 'o/', 'whats up', 'what\'s up', 'what up', 'howdy', 'ahoy', 'henlo'],
+    'singleGreets': ['hi', 'yo', 'nyow', 'hiya', 'heya', 'owo7']
   },
   'timeOfDayGreets': [
     {
