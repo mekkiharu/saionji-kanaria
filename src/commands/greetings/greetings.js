@@ -14,7 +14,7 @@ const greetingsHandler = (message, args, kanaWasMentioned) => {
 
   for (const [index, { greets: timeOfDayGreetings, singleGreet }] of timeOfDayGreets.entries()) {
     if (timeOfDayGreetings.some(isLongGreetFound) || (singleGreet === normalizedMessageContent.content)) {
-      const timeOfDayGreet = kanaWasMentioned ? `${timeOfDayReplies[index]} <@${message.author.id}>!` : `${timeOfDayReplies}!`;
+      const timeOfDayGreet = kanaWasMentioned ? `${timeOfDayReplies[index]} <@${message.author.id}>!` : `${timeOfDayReplies[index]}!`;
       return message.channel.send(timeOfDayGreet);
     }
   }
