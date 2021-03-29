@@ -5,10 +5,10 @@ import {PARTIALS} from './utils/constants/discord-constants.js';
 import app from './src/app.js';
 
 config();
-const discordClient = new Discord.Client({partials: PARTIALS});
+const kanaInstance = new Discord.Client({partials: PARTIALS});
 const loginToken = process.env.SAIONJI_TOKEN;
 
-discordClient.commands = new Discord.Collection();
+kanaInstance.commands = new Discord.Collection();
 const commandFolders = fs.readdirSync('src/commands');
 
 for (const folder of commandFolders) {
@@ -17,20 +17,31 @@ for (const folder of commandFolders) {
   for (const file of commandFiles) {
     const {default: command} = await import(`./src/commands/${folder}/${file}`);
 
+    /**
+     * Set Command Names that are type Arrays ( objects according to js )
+     * as alternate command names. Useful when the command can be executed by various keys.
+     */
     if (typeof command.name === 'object') {
       for (const alternateCommand of command.name) {
-        discordClient.commands.set(alternateCommand, command);
+        kanaInstance.commands.set(alternateCommand, command);
       }
     } else {
-      discordClient.commands.set(command.name, command);
+      kanaInstance.commands.set(command.name, command);
     }
   }
 }
 
-discordClient.on('ready', () => {
+kanaInstance.on('ready', async () => {
   console.log('Saionji-Kanaria is Ready !');
+  await kanaInstance.user.setPresence({
+    status: 'online',
+    activity: {
+      type: 'WATCHING',
+      name: 'master! |ω・)'
+    }
+  });
 });
 
-await discordClient.login(loginToken);
+await kanaInstance.login(loginToken);
 
-await app(discordClient);
+await app(kanaInstance);
