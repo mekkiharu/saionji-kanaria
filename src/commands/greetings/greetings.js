@@ -7,7 +7,7 @@ const greetingsHandler = (message, args, kanaWasMentioned) => {
   const isShortGreetFound = (greet) => normalizedMessageContent.content === greet;
 
   if (casualGreets.greets.some(isLongGreetFound) || casualGreets.singleGreets.some(isShortGreetFound)) {
-    const casualGreet = kanaWasMentioned ? `nyahallo <@${message.author.id}>!` : 'nyahallo!'
+    const casualGreet = kanaWasMentioned ? `nyahallo <@${message.author.id}>!` : 'nyahallo!';
 
     return message.channel.send(casualGreet);
   }
