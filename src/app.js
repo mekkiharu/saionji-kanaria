@@ -1,4 +1,4 @@
-import {COMMAND_PREFIX} from '../utils/constants/discord-constants.js';
+import {COMMAND_PREFIX, EMBED_COLOR} from '../utils/constants/discord-constants.js';
 import Discord from 'discord.js';
 
 const app = async (kanaInstance) => {
@@ -11,7 +11,7 @@ const app = async (kanaInstance) => {
     const welcomeEmbed = new Discord.MessageEmbed()
         .setAuthor(`${member.user.tag} just joined!`, member.user.avatarURL())
         .setDescription(`Welcome to ${member.guild.name}!`)
-        .setColor('8A2BE2');
+        .setColor(EMBED_COLOR);
 
     const welcomeChannel = member.guild.channels.cache.find(findWelcomeChannel);
     const listedBaseRole = member.guild.roles.cache.find(findDefaultRole);
@@ -29,7 +29,7 @@ const app = async (kanaInstance) => {
     }
   });
 
-  kanaInstance.on('message', msg => {
+  kanaInstance.on('message', async msg => {
     const args = msg.content.startsWith(COMMAND_PREFIX) && msg.content.slice(COMMAND_PREFIX.length).trim().split(' ');
     const commandName = args.length ? args.shift().toLowerCase() : '';
     const wasKanaMentioned = !!msg.mentions.users.get(ownId);
@@ -39,7 +39,7 @@ const app = async (kanaInstance) => {
     }
 
     try {
-      kanaInstance.commands.get(commandName).execute(msg, args, wasKanaMentioned);
+      await kanaInstance.commands.get(commandName).execute(msg, args, wasKanaMentioned, kanaInstance);
     } catch (err) {
       console.error(`Message event err: ${err}`);
     }
